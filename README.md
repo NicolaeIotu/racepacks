@@ -1,12 +1,3 @@
-<style>
-table, th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
-  padding: 2px;
-  text-align: center;
-}
-</style>
-
 # racepacks
 
 **racepacks** can compare the execution speed of multiple sets of instructions, functions, packs etc.
