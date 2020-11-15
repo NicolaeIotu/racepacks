@@ -3,27 +3,20 @@ const { Racepacks } = require('../lib/racepacks')
 const setup = {
   packs: {
     op1: (x) => {
-      return x + x
+      Math.sqrt(x)
     },
     op2: (x) => {
-      return x + x + x
+      Math.sqrt(Math.sqrt(x))
     },
     op3: (x) => {
-      return x + x + x + x
+      Math.sqrt(Math.sqrt(Math.sqrt(x)))
     },
     op4: (x) => {
-      return x + x + x + x + x
+      Math.sqrt(Math.sqrt(Math.sqrt(Math.sqrt(x))))
     }
   },
-  tests: [
-    1,
-    'a',
-    true,
-    false,
-    1111,
-    'aaaa'
-  ]
+  tests: [1, 2, 55, 190]
 }
 
-// eslint-disable-next-line no-new
-new Racepacks(setup)
+const example1 = new Racepacks(setup)
+console.log(example1.podium)

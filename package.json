@@ -1,6 +1,6 @@
 {
   "name": "racepacks",
-  "version": "0.1.0",
+  "version": "0.2.9",
   "description": "Code speed compared",
   "main": "lib/racepacks.js",
   "scripts": {
@@ -17,7 +17,6 @@
     "fastest",
     "compare",
     "code",
-    "pack",
     "performance",
     "analyze"
   ],

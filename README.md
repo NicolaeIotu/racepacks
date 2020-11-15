@@ -1,107 +1,239 @@
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 2px;
+  text-align: center;
+}
+</style>
+
 # racepacks
 
 **racepacks** can compare the execution speed of multiple sets of instructions, functions, packs etc.
 
-More documentation and features coming up soon.
+When running with Node.js **racepacks** has nanosecond precision. This is the recommended way of running **racepacks** if possible.
+ 
+When running in browser **racepacks** has millisecond precision.
+
+* Examples
+  * [racepacks in Node.js](#racepacks-in-node-js)
+  * [racepacks in browser](#racepacks-in-browser)
+* <a href="https://nicolaeiotu.github.io/racepacks" target="_blank" title="racepacks Documentation">Documentation</a>
+* [Others](#others)
 
 ## Examples
-The constructor is expecting a special object formatted as per example below:
+The constructor is expecting a special `setup` object formatted as per examples below:
 
+### racepacks in Node.js
 ```
-const xtypeof = require('xtypeof')
-const kindof = require('kind-of')
-const _typeof = require('typeof')
-const typeof_ = require('type-of')
-
-const { Racepacks } = require('../lib/racepacks')
+const { Racepacks } = require('racepacks')
 
 const setup = {
   packs: {
-    kindof: (o) => {
-      kindof(o)
+    // racing function 'op1'
+    op1: (x) => {
+      // racing content
+      Math.sqrt(x)
+      // ...
     },
-    _typeof: (o) => {
-      _typeof(o)
+
+    // racing function 'op2'
+    op2: (x) => {
+      // racing content
+      Math.sqrt(Math.sqrt(x))
+      // ...
     },
-    xtypeof: (o) => {
-      xtypeof(o)
+
+    // racing function 'op3'
+    op3: (x) => {
+      // racing content
+      Math.sqrt(Math.sqrt(Math.sqrt(x)))
+      // ...
     },
-    typeof_: (o) => {
-      typeof_(o)
+
+    // racing function 'op4'
+    op4: (x) => {
+      // racing content
+      Math.sqrt(Math.sqrt(Math.sqrt(Math.sqrt(x))))
+      // ...
     }
   },
-
-  // eslint-disable-next-line no-sparse-arrays
-  tests: [, //  0
-    null, //  1
-    undefined, //  2
-    false, //  3
-    1, //  4
-    1n, //  5
-    'a', //  6
-    Symbol('x'), //  7
-    () => {
-    }, //  8
-    {}, //  9
-    [], // 10
-    new Map(), // 11
-    new Set(), // 12
-    new Date(), // 13
-    /^a/, // 14
-    new WeakMap(), // 15
-    new WeakSet(), // 16
-    new Promise(() => {
-    }), // 17
-    new ArrayBuffer(1), // 18
-    new SharedArrayBuffer(1), // 19
-    new DataView(new ArrayBuffer(1)), // 20
-    new Int8Array(1), // 21
-    Buffer.alloc(1), // 22
-    new Uint8ClampedArray(1), // 23
-    new Int16Array(1), // 24
-    new Uint16Array(1), // 25
-    new Int32Array(1), // 26
-    new Uint32Array(1), // 27
-    new Float32Array(1), // 28
-    new Float64Array(1), // 29
-    new BigInt64Array(1), // 30
-    new BigUint64Array(1), // 31
-    new Error('err'), // 32
-    new TypeError('terr') // 33
-  ]
+  tests: [1, 2, 55, 190]
 }
 
-new Racepacks(setup)
+const example1 = new Racepacks(
+    // the setup object
+    setup, 
+
+    // output results/test in table format (the summary is always in table format)
+    // default: true
+    true, 
+
+    // a value for 'this' when used within the functions called in 'setup'
+    // default: null
+    null, 
+
+    // keep silent
+    // default: false
+    false)
 ```
 
-Default output looks like this:
+Sample output:
 
- *** racepacks Results *** 
-  Nanosecond precision
-  ( *  fastest  )
+  <span style="background-color: lawngreen; color: black; font-weight: bold;">
+    &nbsp;*** racepacks Results ***&nbsp;</span>
+  <br>
+  <span style="color: red;"> Nanosecond precision </span><br>
+  ( *  <span style="color: lawngreen; background-color: grey;">&nbsp;fastest&nbsp;</span>  )
+  <table>
+  <thead>
+    <tr>
+      <th>(index)</th>
+      <th>Arguments / Test</th>
+      <th>op1</th>
+      <th>op2</th>
+      <th>op3</th>
+      <th>op4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>'1'</td>
+      <td>40</td>
+      <td>'38 *'</td>
+      <td>53</td>
+      <td>46</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>'2'</td>
+      <td>'25 *'</td>
+      <td>29</td>
+      <td>29</td>
+      <td>32</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>'55'</td>
+      <td>'25 *'</td>
+      <td>29</td>
+      <td>41</td>
+      <td>33</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>'190'</td>
+      <td>'25 *'</td>
+      <td>30</td>
+      <td>30</td>
+      <td>32</td>
+    </tr>
+  </tbody>
+  </table>
 
-  │ (index) │        Arguments / Test        │ kindof │ _typeof │ xtypeof │ typeof_ │
-  | ------- | ------------------------------ | ------ | ------- | ------- | ------- |
-  │    0    │          'undefined'           │ '32 *' │ '32 *'  │   120   │   50    │
-  │    1    │             'null'             │ '26 *' │   63    │   39    │   41    │
-  │    2    │          'undefined'           │ '26 *' │   54    │   55    │   40    │
-  │    3    │            'false'             │ '28 *' │   38    │   40    │   45    │
-  │    4    │              '1'               │ '32 *' │   81    │   41    │   59    │
-  │    5    │              '1n'              │  327   │ '52 *'  │   60    │   86    │
-  │    6    │              'a'               │ '28 *' │   42    │   63    │   39    │
+  <span style="background-color: lawngreen; color: black; font-weight: bold;">
+    &nbsp;*** racepacks Summary ***&nbsp;</span>
+  <br>
+  <span style="color: red;"> Nanosecond precision </span>
+  
+  <table>
+  <thead>
+    <tr>
+      <th>(index)</th>
+      <th>Pack</th>
+      <th>Title</th>
+      <th>Efficiency (% Last)</th>
+      <th>Efficiency (% Next)</th>
+      <th>Total tests time</th>
+      <th>Wins</th>
+      <th>Runs</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>'op1'</td>
+      <td>'Winner'</td>
+      <td>'23.44 %'</td>
+      <td>'6.34 %'</td>
+      <td>36465</td>
+      <td>3</td>
+      <td>32</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>'op2'</td>
+      <td>'2nd place'</td>
+      <td>'16.08 %'</td>
+      <td>'13.16 %'</td>
+      <td>38777</td>
+      <td>1</td>
+      <td>32</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>'op3'</td>
+      <td>'3rd place'</td>
+      <td>'2.58 %'</td>
+      <td>'2.58 %'</td>
+      <td>43880</td>
+      <td>0</td>
+      <td>32</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>'op4'</td>
+      <td>''</td>
+      <td>'0.00 %'</td>
+      <td>'0.00 %'</td>
+      <td>45014</td>
+      <td>0</td>
+      <td>32</td>
+    </tr>
+  </tbody>
+  </table>
 
+
+### racepacks in browser
+```
 ...
+<head>
+    ...
+    <script src="./racepacks.bundle.js"></script>
+    ...
+...
+    <script>
+        const Racepacks = racepacksBundled.Racepacks;
+        const setup = {
+            packs: {
+              op1: (x) => {
+                Math.sqrt(x)
+              },
+              op2: (x) => {
+                Math.sqrt(Math.sqrt(x))
+              },
+              op3: (x) => {
+                Math.sqrt(Math.sqrt(Math.sqrt(x)))
+              },
+              op4: (x) => {
+                Math.sqrt(Math.sqrt(Math.sqrt(Math.sqrt(x))))
+              }
+            },
+            tests: [1, 2, 55, 190]
+        };
+        
+        const raceResults = new Racepacks(setup)
+        console.log(raceResults.podium)
+    </script>
+...
+```
 
- *** racepacks Summary *** 
-  Nanosecond precision
-  
-  │ (index) │   Pack    │    Title    │ Efficiency (% Last) │ Efficiency (% Next) │ Total tests time │ Wins │ Runs │
-  
-  | ------- | --------- | ----------- | ------------------- | ------------------- | ---------------- | ---- | ---- |
-  
-  │    0    │ '_typeof' │  'Winner'   │     '157.62 %'      │      '29.85 %'      │      458472      │  21  │ 272  │
-  
-  │    1    │ 'xtypeof' │ '2nd place' │      '98.41 %'      │      '0.91 %'       │      595308      │  4   │ 272  │
-  │    2    │ 'typeof_' │ '3rd place' │      '96.61 %'      │      '96.61 %'      │      600738      │  3   │ 272  │
-  │    3    │ 'kindof'  │     ''      │      '0.00 %'       │      '0.00 %'       │     1181136      │  6   │ 272  │
+For more examples see 'examples' folder.
 
+## Others
+**racepacks** itself runs single threaded and was meant to handle directly synchronous instructions only. While
+ testing multithreading and/or async instructions might work, it's not guaranteed that the results will be accurate
+  at this stage.
+
+&copy; Copyright 2020 Nicolae Iotu, nicolae.g.iotu@gmail.com
