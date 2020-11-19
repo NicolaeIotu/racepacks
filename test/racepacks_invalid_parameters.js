@@ -12,3 +12,17 @@ tap.throws(() => {
   // eslint-disable-next-line no-new
   new Racepacks({})
 }, Error)
+
+tap.throws(() => {
+  // eslint-disable-next-line no-new
+  new Racepacks({
+    packs: []
+  })
+}, Error)
+tap.throws(() => {
+  // eslint-disable-next-line no-new
+  new Racepacks({
+    packs: {},
+    tests: 1
+  })
+}, Error)
