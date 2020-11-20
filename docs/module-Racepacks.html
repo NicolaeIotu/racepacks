@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Module: Racepacks</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Module: Racepacks</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        
+            
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>Racepacks can reliably determine the fastest running set of instructions.<br>
+Racepacks will run, measure, record output and display in a human readable format the race results after
+performing the tests indicated.<br>
+In order to run Racepacks you must use this constructor which has a couple of arguments as per below, the most
+important being the <code>setup</code> object which is the only mandatory argument. The format of the <code>setup</code> object is pretty
+simple as per examples below.</p>
+<p>When running with Node.js, Racepacks will redirect output and errors of the code being tested to a file
+located in the system temporary folder i.e. '/tmp/racepacks/racepacks_20201120_25101PM' (OS dependant). If
+required you can further analyze the output if any. Obviously Racepacks does not handle the cleanup of this
+location which is normally done by the system.<br>
+When running in browser, Racepacks cannot properly control output and errors of the code being tested if any,
+and unwanted content will probably clutter the console. This is unavoidable.</p>
+<p>Racepacks itself runs single threaded and in order to ensure the fairness of the tests a custom rotational order is
+used. This means that the functions being tested are rotated in such a way that multiple runs of each test are
+executed and for each of these runs the order of the functions is changed. If the tests time difference obtained
+after running Racepacks is small or comparable, it is recommended to run it a couple of times more. This is
+because even if special provisions are in place Racepacks cannot ensure constant processor time for the tests.
+If you know how to do this please contact the author :)<br>
+Racepacks has nanosecond precision when running with Node.js, and microsecond or millisecond precision when
+running in browser.</p></div>
+        
+
+        
+            
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>setup</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>The <code>setup</code> object has two properties: <strong>packs</strong> which is an object containing test
+functions and <strong>tests</strong> which is an array of parameters to be passed to the functions in <code>packs</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>tableOutput</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last"><p>The results of each test can be shown as a table or list. Toggle this option here.
+Defaults to <code>true</code> (table view).</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>targetThis</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last"><p>An object to be passed as <strong>this</strong> value to the functions being tested. Defaults to
+<code>null</code> (a value for <strong>this</strong> is not required/used).</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>silent</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last"><p>Suppress output of Racepacks. This could be used when including <strong>Racepacks</strong> in scripts.
+Normally the property to be used after choosing silent mode is <strong><code>podium</code></strong> which is a sorted array containing
+the winners of the tests.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-version">Version:</dt>
+    <dd class="tag-version"><ul class="dummy"><li>0.3.14</li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li><a href="mailto:nicolae.g.iotu@gmail.com">Nicolae Iotu</a></li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+    <dt class="tag-license">License:</dt>
+    <dd class="tag-license"><ul class="dummy"><li>Apache-2.0</li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="racepacks.js.html">racepacks.js</a>, <a href="racepacks.js.html#line176">line 176</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Racepacks</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+    <h5>Examples</h5>
+    
+    <pre class="prettyprint"><code>// Example 1, defaults
+const { Racepacks } = require('racepacks')
+new Racepacks({
+  packs: {
+    ArrayIsArray: (x) => {
+     return Array.isArray(x)
+   },
+   instanceofArray: (x) => {
+     return x instanceof Array
+   }
+  },
+  tests: [1, [2, 3]]
+})</code></pre>
+
+    <pre class="prettyprint"><code>// Example 2, list view
+const { Racepacks } = require('racepacks')
+const setup = {
+ packs: {
+   op1: (x) => {
+     Math.sqrt(x)
+   },
+   op2: (x) => {
+     throw new Error('errors are expensive')
+   },
+   op4: (x) => {
+     Math.sqrt(Math.sqrt(Math.sqrt(Math.sqrt(x))))
+   }
+ },
+ tests: [1, 2, 55, 190]
+}
+// get test results as list
+const raceResults = new Racepacks(setup, false)</code></pre>
+
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="podium"><span class="type-signature">(constant) </span>podium<span class="type-signature"> :Array</span></h4>
+
+
+
+
+<div class="description">
+    <p>This is the main usable property of an instance of Racepacks.
+<strong>podium</strong> is a sorted array containing the race results. The first position of the array podium[0] contains
+the winner of the tests, the second position of the array podium[1] contains the second fastest function and so on.</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Array</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="racepacks.js.html">racepacks.js</a>, <a href="racepacks.js.html#line250">line 250</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="raceDescriptionTable"><span class="type-signature">(constant) </span>raceDescriptionTable<span class="type-signature"> :Array</span></h4>
+
+
+
+
+<div class="description">
+    <p><strong>raceDescriptionTable</strong> is used to outline the race results.</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Array</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="racepacks.js.html">racepacks.js</a>, <a href="racepacks.js.html#line236">line 236</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="raceStats"><span class="type-signature">(constant) </span>raceStats<span class="type-signature"> :Object</span></h4>
+
+
+
+
+<div class="description">
+    <p><strong>raceStats</strong> is used to outline the race results.</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="racepacks.js.html">racepacks.js</a>, <a href="racepacks.js.html#line242">line 242</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="raceTimes"><span class="type-signature">(constant) </span>raceTimes<span class="type-signature"> :Object</span></h4>
+
+
+
+
+<div class="description">
+    <p><strong>raceTimes</strong> is used to outline the race results.</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="racepacks.js.html">racepacks.js</a>, <a href="racepacks.js.html#line230">line 230</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="setup"><span class="type-signature">(constant) </span>setup<span class="type-signature"> :boolean</span></h4>
+
+
+
+
+<div class="description">
+    <p>Inspection only property.
+The <code>setup</code> object as passed to Racepacks.</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">boolean</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="racepacks.js.html">racepacks.js</a>, <a href="racepacks.js.html#line198">line 198</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="silent"><span class="type-signature">(constant) </span>silent<span class="type-signature"> :boolean</span></h4>
+
+
+
+
+<div class="description">
+    <p>Inspection only property.
+Used to suppress output of Racepacks.</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">boolean</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="racepacks.js.html">racepacks.js</a>, <a href="racepacks.js.html#line219">line 219</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="tableOutput"><span class="type-signature">(constant) </span>tableOutput<span class="type-signature"> :boolean</span></h4>
+
+
+
+
+<div class="description">
+    <p>Inspection only property.
+Used to select the list view instead of the default table view.</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">boolean</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="racepacks.js.html">racepacks.js</a>, <a href="racepacks.js.html#line205">line 205</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="targetThis"><span class="type-signature">(constant) </span>targetThis<span class="type-signature"> :boolean</span></h4>
+
+
+
+
+<div class="description">
+    <p>Inspection only property.
+Used to indicate a default value for <code>this</code> when calling test functions.</p>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">boolean</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="racepacks.js.html">racepacks.js</a>, <a href="racepacks.js.html#line212">line 212</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Racepacks.html">Racepacks</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a>
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

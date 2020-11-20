@@ -1,13 +1,28 @@
 # racepacks
 
-**racepacks** can compare the execution speed of multiple sets of instructions, functions, packs etc.
+**racepacks** can reliably determine the fastest running set of instructions.
+**racepacks** will run, measure, record output and display in a human readable format the race results after
+ performing the tests indicated.
 
-When running with Node.js **racepacks** has nanosecond precision. This is the recommended way of running **racepacks** if possible.
- 
-When running in browser **racepacks** has millisecond precision.
+When running with Node.js, **racepacks** will redirect output and errors of the code being tested to a file located
+ in the system temporary folder i.e. '/tmp/racepacks/racepacks_20201120_25101PM' (OS dependant). If required you can
+ further analyze the output if any. Obviously **racepacks** does not handle the cleanup of this location which is
+ normally done by the system.
+  
+When running in browser, **racepacks** cannot properly control output and errors of the code being tested if any, and
+ unwanted content will probably clutter the console. This is unavoidable.
+
+**racepacks** itself runs single threaded and in order to ensure the fairness of the tests a custom rotational order
+ is used. This means that the functions being tested are rotated in such a way that multiple runs of each test are
+ executed and for each of these runs the order of the functions is changed. If the tests time difference obtained
+ after running Racepacks is small or comparable, it is recommended to run it a couple of times more. This is
+ because even if special provisions are in place Racepacks cannot ensure constant processor time for the tests. If
+ you know how to do this please contact the author :)
+     
+**racepacks** has nanosecond precision when running with Node.js, and microsecond or millisecond precision when running in browser.
 
 * Examples
-  * [racepacks in Node.js](#racepacks-in-node-js)
+  * [racepacks in Node.js](#racepacks-in-nodejs)
   * [racepacks in browser](#racepacks-in-browser)
 * <a href="https://nicolaeiotu.github.io/racepacks" target="_blank" title="racepacks Documentation">Documentation</a>
 * [Others](#others)
@@ -56,7 +71,7 @@ const example1 = new Racepacks(
     // the setup object
     setup, 
 
-    // output results/test in table format (the summary is always in table format)
+    // output results per test in table format (the summary is always in table format)
     // default: true
     true, 
 
@@ -71,11 +86,9 @@ const example1 = new Racepacks(
 
 Sample output:
 
-  <span style="background-color: lawngreen; color: black; font-weight: bold;">
-    &nbsp;*** racepacks Results ***&nbsp;</span>
-  <br>
-  <span style="color: red;"> Nanosecond precision </span><br>
-  ( *  <span style="color: lawngreen; background-color: grey;">&nbsp;fastest&nbsp;</span>  )
+**` *** racepacks Results *** `**<br>
+**` Nanosecond precision `**<br>
+**` ( *  fastest  ) `**
   <table>
   <thead>
     <tr>
@@ -123,11 +136,9 @@ Sample output:
   </tbody>
   </table>
 
-  <span style="background-color: lawngreen; color: black; font-weight: bold;">
-    &nbsp;*** racepacks Summary ***&nbsp;</span>
-  <br>
-  <span style="color: red;"> Nanosecond precision </span>
-  
+**` *** racepacks Summary *** `**<br>
+**` Nanosecond precision `**<br>
+**` ( *  fastest  ) `**
   <table>
   <thead>
     <tr>
@@ -227,4 +238,4 @@ For more examples see 'examples' folder.
  testing multithreading and/or async instructions might work, it's not guaranteed that the results will be accurate
   at this stage.
 
-&copy; Copyright 2020 Nicolae Iotu, nicolae.g.iotu@gmail.com
+**racepacks** is &copy; Copyright 2020 Nicolae Iotu, nicolae.g.iotu@gmail.com

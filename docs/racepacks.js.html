@@ -1,4 +1,32 @@
-'use strict'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: racepacks.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: racepacks.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict'
 
 /* racepacks is Copyright (C) 2020 Nicolae Iotu, nicolae.g.iotu@gmail.com
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -100,9 +128,9 @@ switch (accuracyFactor) {
 // end determine time source granularity
 
 /**
- * Racepacks can reliably determine the fastest running set of instructions.<br>
+ * Racepacks can reliably determine the fastest running set of instructions.&lt;br>
  * Racepacks will run, measure, record output and display in a human readable format the race results after
- * performing the tests indicated.<br>
+ * performing the tests indicated.&lt;br>
  * In order to run Racepacks you must use this constructor which has a couple of arguments as per below, the most
  * important being the `setup` object which is the only mandatory argument. The format of the `setup` object is pretty
  * simple as per examples below.
@@ -110,7 +138,7 @@ switch (accuracyFactor) {
  * When running with Node.js, Racepacks will redirect output and errors of the code being tested to a file
  * located in the system temporary folder i.e. '/tmp/racepacks/racepacks_20201120_25101PM' (OS dependant). If
  * required you can further analyze the output if any. Obviously Racepacks does not handle the cleanup of this
- * location which is normally done by the system.<br>
+ * location which is normally done by the system.&lt;br>
  * When running in browser, Racepacks cannot properly control output and errors of the code being tested if any,
  * and unwanted content will probably clutter the console. This is unavoidable.
  *
@@ -119,7 +147,7 @@ switch (accuracyFactor) {
  * executed and for each of these runs the order of the functions is changed. If the tests time difference obtained
  * after running Racepacks is small or comparable, it is recommended to run it a couple of times more. This is
  * because even if special provisions are in place Racepacks cannot ensure constant processor time for the tests.
- * If you know how to do this please contact the author :)<br>
+ * If you know how to do this please contact the author :)&lt;br>
  * Racepacks has nanosecond precision when running with Node.js, and microsecond or millisecond precision when
  * running in browser.
  * @param setup {object} The `setup` object has two properties: **packs** which is an object containing test
@@ -135,7 +163,7 @@ switch (accuracyFactor) {
  * @constructor
  * @version 0.3.14
  * @license Apache-2.0
- * @author Nicolae Iotu <nicolae.g.iotu@gmail.com>
+ * @author Nicolae Iotu &lt;nicolae.g.iotu@gmail.com>
  * @exports Racepacks
  * @example
  * // Example 1, defaults
@@ -180,7 +208,7 @@ function Racepacks (setup, tableOutput = true, targetThis = null, silent = false
 
   __objCounter++
 
-  if (isBrowser && !silent) { console.warn(outputUncontrollable) }
+  if (isBrowser &amp;&amp; !silent) { console.warn(outputUncontrollable) }
 
   if (!Array.isArray(setup.tests) || setup.tests.length === 0) {
     throw new Error('No tests detected!')
@@ -336,12 +364,12 @@ const getRaceSummary = function (raceStats) {
   let effNext
 
   // generate output
-  for (let i = 0; i < rstLen; i++) {
+  for (let i = 0; i &lt; rstLen; i++) {
     // titles
-    if (nextTitle < titles.length) {
+    if (nextTitle &lt; titles.length) {
       raceStatsTable[i].Title = titles[nextTitle]
     }
-    if (i < rstLen - 1) {
+    if (i &lt; rstLen - 1) {
       nextTitle++
     }
 
@@ -350,7 +378,7 @@ const getRaceSummary = function (raceStats) {
       (raceStatsTable[rstLen - 1]['Total tests time'] * 100 / raceStatsTable[i]['Total tests time'] - 100).toFixed(2) + ' %'
 
     // % next
-    effNext = (i < rstLen - 1
+    effNext = (i &lt; rstLen - 1
       ? i + 1
       : i)
     raceStatsTable[i]['Efficiency (% Next)'] =
@@ -512,13 +540,13 @@ const race = function (tableOutput = true, silent = false) {
     this.raceTimes[testNo][pack].end += end
     this.raceTimes[testNo][pack].runs++
 
-    if (warmUpsCounter <= 1) {
+    if (warmUpsCounter &lt;= 1) {
       this.raceStats[pack].ttime += this.raceTimes[testNo][pack].end - this.raceTimes[testNo][pack].start
       this.raceStats[pack].runs++
     }
 
     // get the winner if it's the last step
-    if (warmUpsCounter <= 1 && i === lastInRotOrder) {
+    if (warmUpsCounter &lt;= 1 &amp;&amp; i === lastInRotOrder) {
       const winner = []
       for (const _testName_ in this.raceTimes[testNo]) {
         this.raceTimes[testNo][_testName_].start = this.raceTimes[testNo][_testName_].start / BigInt(i + 1)
@@ -536,7 +564,7 @@ const race = function (tableOutput = true, silent = false) {
           const t1 = this.raceTimes[testNo][_testName_].end - this.raceTimes[testNo][_testName_].start
           const t2 = this.raceTimes[testNo][winner[0]].end - this.raceTimes[testNo][winner[0]].start
           if (!isDupe) {
-            if (t1 < t2) {
+            if (t1 &lt; t2) {
               winner[0] = _testName_
             } else if (t1 === t2) {
               Array.prototype.push.call(winner, _testName_)
@@ -576,7 +604,7 @@ const race = function (tableOutput = true, silent = false) {
       this.raceDescriptionTable[testNo]['Arguments / Test'] = slicedTableContent
     }
 
-    for (let i = 0; i < rrOrderLength; i++) {
+    for (let i = 0; i &lt; rrOrderLength; i++) {
       if (i === 0) {
         do {
           raceInner.call(this, i, testNo, test, warmUpsCounter, lastInRotOrder)
@@ -642,3 +670,26 @@ if (process.env.NODE_ENV === 'test') {
 
 // main export
 module.exports.Racepacks = Racepacks
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Racepacks.html">Racepacks</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a>
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

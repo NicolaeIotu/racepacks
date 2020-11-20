@@ -1,8 +1,8 @@
 {
   "name": "racepacks",
-  "version": "0.2.9",
+  "version": "0.3.14",
   "description": "Code speed compared",
-  "main": "lib/racepacks.js",
+  "main": "dist/racepacks.js",
   "scripts": {
     "start": "node dist/racepacks.js",
     "test": "tap --timeout=0 --coverage --no-browser"

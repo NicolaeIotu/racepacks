@@ -1,5 +1,13 @@
 # racepacks Changelog
 
+## v0.3.14 Time Granularity, Docs ++
+Add time granularity, basic checks.
+
+Provision for tests.
+
+Correct tmp file handling, jsdoc-BigInt compatibility.
+
+
 ## v0.2.9 Improvements and corrections
 Improve README.md.
 

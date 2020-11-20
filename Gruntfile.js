@@ -39,8 +39,8 @@ module.exports = function (grunt) {
         command: 'npm publish --dry-run'
       },
       pretest: {
-        // command: 'grunt jsdoc && ' +
-        command: 'babel "<%= __cwd %>/lib" --out-dir "<%= __cwd %>/dist" --minified --compact=true --no-comments && ' +
+        command: 'grunt jsdoc && ' +
+          'babel "<%= __cwd %>/lib" --out-dir "<%= __cwd %>/dist" --minified --compact=true --no-comments && ' +
           'browserify -e "<%= __cwd %>/dist/racepacks.js" -o "<%= __cwd %>/dist/racepacks.bundle.js" -s' +
           ' racepacksBundled && ' +
           'node "<%= __cwd %>/scripts/dist-files-append-license.js"'
