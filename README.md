@@ -6,11 +6,9 @@
 
 When running with Node.js, **racepacks** will redirect output and errors of the code being tested to a file located
  in the system temporary folder i.e. '/tmp/racepacks/racepacks_20201120_25101PM' (OS dependant). If required you can
- further analyze the output if any. Obviously **racepacks** does not handle the cleanup of this location which is
- normally done by the system.
+ further analyze the output if any.
   
-When running in browser, **racepacks** cannot properly control output and errors of the code being tested if any, and
- unwanted content will probably clutter the console. This is unavoidable.
+When running in browser extra content may appear in the console.
 
 **racepacks** itself runs single threaded and in order to ensure the fairness of the tests a custom rotational order
  is used. This means that the functions being tested are rotated in such a way that multiple runs of each test are
@@ -19,7 +17,8 @@ When running in browser, **racepacks** cannot properly control output and errors
  because even if special provisions are in place Racepacks cannot ensure constant processor time for the tests. If
  you know how to do this please contact the author :)
      
-**racepacks** has nanosecond precision when running with Node.js, and microsecond or millisecond precision when running in browser.
+**racepacks** has nanosecond precision when running with Node.js, and microsecond or millisecond precision when
+ running in the browser.
 
 * Examples
   * [racepacks in Node.js](#racepacks-in-nodejs)

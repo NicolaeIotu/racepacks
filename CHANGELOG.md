@@ -1,5 +1,12 @@
 # racepacks Changelog
 
+## v0.3.16 Correct dependencies a.o.
+Add dependency core-js
+Remove dependency grunt-contrib-uglify
+Improve grunt:purge and grunt:pretest
+Improve README.md
+
+
 ## v0.3.14 Time Granularity, Docs ++
 Add time granularity, basic checks.
 
