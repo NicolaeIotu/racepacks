@@ -1,3 +1,6 @@
+![Actions Status](https://github.com/NicolaeIotu/racepacks/workflows/tests/badge.svg)
+![Actions Status](https://github.com/NicolaeIotu/racepacks/workflows/standard%20code%20style/badge.svg)
+
 # racepacks
 
 **racepacks** can reliably determine the fastest running set of instructions.

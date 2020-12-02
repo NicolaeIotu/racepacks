@@ -4,8 +4,12 @@
   "description": "Code speed compared",
   "main": "dist/racepacks.js",
   "scripts": {
+    "preversion": "./scripts/preversion.sh $(node -p 'JSON.parse(fs.readFileSync(`package.json`)).version') && npm test",
+    "version": "git add -A dist docs",
+    "postversion": "git push && git push --tags",
+    "standard": "standard lib/*",
     "start": "node dist/racepacks.js",
-    "test": "tap --timeout=0 --coverage --no-browser"
+    "test": "grunt pretest && tap --timeout=0 --no-browser --reporter=base"
   },
   "repository": {
     "type": "git",
@@ -43,6 +47,7 @@
     "grunt": "^1.3.0",
     "grunt-shell": "^3.0.1",
     "jsdoc": "^3.6.6",
+    "standard": "^16.0.3",
     "tap": "^14.10.8"
   },
   "dependencies": {
